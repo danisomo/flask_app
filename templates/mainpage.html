@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+    <title>Practica 1: Computación en red</title>
+  </head>
+  <body>
+    <div class="contenedor" id="contenedor">
+        <h1 class="estiloh1" id="titulo">Práctica 1: Computación en red</h1>
+        <h2 class="estiloh2" id="titulo2">Programación de una aplicación con servicios web</h2>
+    </div>
+
+    <div class="contenedor2" id="contenedor2">
+        <center>
+        	<br><br>
+        	<form action="/consulta"  method="post">
+          		<p><font color="white">Introduzca el umbral para obtener valores: <input type="number" step="0.01" name="umbral" size="20"></font>
+          			      <input type="submit" value="Enviar">
+          	  </p>
+        	</form>
+
+          <button type="button" onclick="location.href='/main'"> Valor medio</button>
+          <br><br>
+        	<button type="button" onclick="location.href='/graph'"> Gráficas externas</button>
+        </center>
+        <br><br>
+
+          {% if flag_main==1 %}
+            {% if mostrar==1 %}
+
+            {% else %}
+            <center>
+              <table id="tabla">
+                <tr>
+                    <th>VALOR MEDIO</th>
+                    <th>BASE DE DATOS</th>
+                </tr>
+                <tr>
+                  <td>{{average}}</td>
+                  <td>{{bbdd}}</td>
+                </tr>
+              </table>
+              <br><br>
+            </center>
+            {% endif %}
+
+          {% else %}
+            <center>
+              <h4 style="color:white">El valor del umbral introducido es: {{thres}}</h4>
+              <br>
+              {% if matches==0 %}
+                <p style="color:white"> No hay valores por encima del umbral </p>
+                <br><br>
+
+              {% else %}
+                <table id="tabla">
+
+                <tr>
+                  <th>VALOR COTIZACIÓN</th>
+                  <th>FECHA</th>
+                  <th>HORA</th>
+                </tr>
+
+                {% for tuplas in valores %}
+                <tr>
+                  {% for listas in tuplas %}
+                    <td>{{listas}}</td>
+                  {% endfor %}  
+                </tr>
+                {% endfor %}
+
+                </table>
+
+                <br><br>
+              {% endif %}
+          {% endif %}
+            </center>
+    </div>
+
+    <div class="pie" id="pie">Universidad de Alcalá</div>
+  </body>
